@@ -20,6 +20,3 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-
-# Use shell form to ensure proper environment variable substitution
-CMD uvicorn src.main:app --host 0.0.0.0
