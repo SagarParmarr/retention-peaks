@@ -21,9 +21,5 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
-# Railway specific - use PORT environment variable
-ENV PORT=8000
-EXPOSE ${PORT}
-
 # Use shell form to ensure proper environment variable substitution
-CMD uvicorn src.main:app --host 0.0.0.0 --port ${PORT}
+CMD uvicorn src.main:app --host 0.0.0.0 --port ${PORT:-8000}
