@@ -4,7 +4,7 @@ main.py
 
 import logging
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status
 from dotenv import load_dotenv
 
 from .routes import (
@@ -25,14 +25,11 @@ load_dotenv()
 
 
 app = FastAPI(
-    title="YouTube Search Bot",
-    description="A Python-based YouTube search bot using FastAPI and YouTube Data API v3",
+    title="Retention Peaks API",
+    description="API for analyzing video retention data",
     version="1.0.0",
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json",
-    redirect_slashes=False,
 )
+
 
 # Initialize CORS middleware
 app.add_middleware(
@@ -42,6 +39,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/health")
+async def health_check():
+    """
+    Health check endpoint to verify API is running
+    """
+    return Response(content="OK", status_code=status.HTTP_200_OK)
 
 
 # Initialize services on startup
