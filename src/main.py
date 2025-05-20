@@ -3,9 +3,11 @@ main.py
 """
 
 import logging
+import os
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Response, status
 from dotenv import load_dotenv
+
 
 from .routes import (
     heatmap,
@@ -39,6 +41,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/")
+async def root():
+    return {"message": "Retention Peaks API is up and running!"}
 
 
 @app.get("/health")
@@ -79,9 +86,11 @@ app.add_middleware(
 if __name__ == "__main__":
     import uvicorn
 
+    port = int(os.environ.get("PORT", 8000))
+
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=8000,
+        port=port,
         reload=True,
     )
