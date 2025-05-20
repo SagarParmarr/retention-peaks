@@ -80,7 +80,7 @@ class HeatmapExtractionService:
                 user_data_dir = "/tmp/playwright-profile"  # persistent profile
                 browser_context = await p.chromium.launch_persistent_context(
                     user_data_dir=user_data_dir,
-                    headless=False,
+                    headless=True,
                     viewport={"width": 1920, "height": 1080},
                 )
 
